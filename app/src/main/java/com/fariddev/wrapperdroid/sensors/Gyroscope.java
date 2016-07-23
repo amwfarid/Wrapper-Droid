@@ -8,38 +8,20 @@ import android.hardware.SensorManager;
 
 import com.fariddev.wrapperdroid.activity.WrapperActivity;
 
-public class Gyroscope implements SensorEventListener {
+public class Gyroscope extends SensorWrapper {
 
 	private SensorManager sensorManager;
 	public double x,y,z;
 
-    public Gyroscope(WrapperActivity activity)
-    {
-		if(activity.getSensorManager() == null)
-			activity.setSensorManager((SensorManager) activity.getSystemService(Context.SENSOR_SERVICE));
-
-		sensorManager = activity.getSensorManager();
-         
-         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-         
-         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST);
-         
-         
-    }
-	
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+    public Gyroscope(WrapperActivity activity) {
+		super(activity,Sensor.TYPE_GYROSCOPE);
+	}
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		x = event.values[0];
 		y = event.values[1];
 		z = event.values[2];
-		
-	}
-	
-	public void stop(){
-		sensorManager.unregisterListener(this);
 	}
 
 }
