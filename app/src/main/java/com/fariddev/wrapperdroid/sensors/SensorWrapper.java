@@ -32,7 +32,9 @@ public class SensorWrapper implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
-    public void onSensorChanged(SensorEvent event) {}
+    public void onSensorChanged(SensorEvent event) {
+        values = event.values;
+    }
 
     public void stop(){
         sensorManager.unregisterListener(this);
