@@ -2,6 +2,7 @@ package com.fariddev.wrapperdroid.samples;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.fariddev.wrapperdroid.FileIO.FileIO;
@@ -40,6 +41,9 @@ public class SampleActivity extends WrapperActivity {
         gx = (TextView) findViewById(R.id.gx);
         gy = (TextView) findViewById(R.id.gy);
         gz = (TextView) findViewById(R.id.gz);
+
+        // Use Log.d or Log.e to display output on logcat panel
+        Log.d("Main", "UI init done");
     }
 
     // Object initialization function
@@ -54,6 +58,8 @@ public class SampleActivity extends WrapperActivity {
         g = new Gyroscope(this);
 
         f = new FileIO("//sdcard","readings.csv",true);
+
+        Log.d("Main", "Object init done");
 
     }
 
@@ -76,6 +82,8 @@ public class SampleActivity extends WrapperActivity {
 
         f.write(a.x+","+a.y+","+a.z+","+g.x+","+g.y+","+g.z+"\n");
         delay(500);
+
+        Log.d("Main", a.x+","+a.y+","+a.z+","+g.x+","+g.y+","+g.z);
     }
 
     // Resource clean up
