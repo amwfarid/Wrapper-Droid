@@ -1,7 +1,5 @@
 package com.fariddev.wrapperdroid.network;
 
-import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,9 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,18 +17,7 @@ public class HttpREST {
 
     private HttpURLConnection httpURLConnection;
 
-    public String[] get(String url){
-
-        Map<String, Map<String, String>> input = new HashMap<String, Map<String, String>>();
-
-        input.put(url,null);
-
-        new NetworkTask().execute((Runnable) input.entrySet());
-
-        return null;
-    }
-
-    private String[] sendGet(String requestURL) throws IOException {
+    public String[] sendGet(String requestURL) throws IOException {
         URL url = new URL(requestURL);
 
         httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -47,7 +32,7 @@ public class HttpREST {
         return response;
     }
 
-    private String[] sendPost(String requestURL,Map<String, String> params) throws IOException {
+    public String[] sendPost(String requestURL,Map<String, String> params) throws IOException {
 
         URL url = new URL(requestURL);
 
@@ -105,38 +90,5 @@ public class HttpREST {
         reader.close();
 
         return (String[]) response.toArray(new String[0]);
-    }
-
-    private class NetworkTask extends AsyncTask<Map.Entry<String, Map<String, String>>, Integer, String[]> {
-        protected String[] doInBackground(Map.Entry<String, Map<String, String>>... input) {
-
-            String url = input[0].getKey();
-            Map<String,String> param = input[0].getValue();
-            String[] response = new String[0];
-            if(param == null){
-                try {
-                    response = sendGet(url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            else{
-                try {
-                    response = sendPost(url,param);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return response;
-        }
-
-        protected void onProgressUpdate(Integer... n) {
-
-        }
-
-        protected void onPostExecute(String[] n) {
-
-        }
     }
 }
