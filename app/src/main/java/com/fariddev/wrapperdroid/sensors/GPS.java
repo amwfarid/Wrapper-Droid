@@ -18,8 +18,9 @@ import com.fariddev.wrapperdroid.activity.WrapperActivity;
 public class GPS implements LocationListener {
 
     private LocationManager locationManager;
-    public double latitide;
+    public double latitude;
     public double longitude;
+    public double altitude;
 
     public GPS(WrapperActivity activity, int delay) {
 
@@ -38,8 +39,9 @@ public class GPS implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
 
-        latitide = location.getLatitude();
+        latitude = location.getLatitude();
         longitude = location.getLongitude();
+        altitude = location.getAltitude();
 
     }
 
