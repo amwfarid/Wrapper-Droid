@@ -10,7 +10,6 @@ import com.fariddev.wrapperdroid.activity.WrapperActivity;
 
 public class Gyroscope extends SensorWrapper {
 
-	private SensorManager sensorManager;
 	public double x,y,z;
 
     public Gyroscope(WrapperActivity activity) {

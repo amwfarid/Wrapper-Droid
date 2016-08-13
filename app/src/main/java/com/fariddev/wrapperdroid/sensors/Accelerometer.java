@@ -10,7 +10,6 @@ import com.fariddev.wrapperdroid.activity.WrapperActivity;
 
 public class Accelerometer extends SensorWrapper {
 
-	private SensorManager sensorManager;
 	public double x,y,z;
 
     public Accelerometer(WrapperActivity activity) {

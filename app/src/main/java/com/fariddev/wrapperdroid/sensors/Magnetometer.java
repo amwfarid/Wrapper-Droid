@@ -10,7 +10,6 @@ import com.fariddev.wrapperdroid.activity.WrapperActivity;
 
 public class Magnetometer extends SensorWrapper {
 
-	private SensorManager sensorManager;
 	public double x,y,z;
 
     public Magnetometer(WrapperActivity activity) {
