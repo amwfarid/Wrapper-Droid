@@ -3,6 +3,7 @@ package com.fariddev.wrapperdroid.sensors;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.GeomagneticField;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,6 +22,7 @@ public class GPS implements LocationListener {
     public double latitude;
     public double longitude;
     public double altitude;
+    public GeomagneticField geomagneticField;
 
     public GPS(WrapperActivity activity, int delay) {
 
@@ -42,6 +44,9 @@ public class GPS implements LocationListener {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         altitude = location.getAltitude();
+
+        geomagneticField = new GeomagneticField((float) latitude,(float) longitude,(float) altitude,
+                System.currentTimeMillis());
 
     }
 

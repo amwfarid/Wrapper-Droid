@@ -1,7 +1,5 @@
 package com.fariddev.wrapperdroid.samples;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -9,7 +7,10 @@ import com.fariddev.wrapperdroid.FileIO.FileIO;
 import com.fariddev.wrapperdroid.R;
 import com.fariddev.wrapperdroid.activity.WrapperActivity;
 import com.fariddev.wrapperdroid.sensors.Accelerometer;
+import com.fariddev.wrapperdroid.sensors.GPS;
 import com.fariddev.wrapperdroid.sensors.Gyroscope;
+import com.fariddev.wrapperdroid.sensors.Magnetometer;
+import com.fariddev.wrapperdroid.sensors.Orientation;
 
 public class SampleActivity extends WrapperActivity {
 
@@ -17,6 +18,9 @@ public class SampleActivity extends WrapperActivity {
 
     Accelerometer a;
     Gyroscope g;
+    Magnetometer m;
+    GPS gps;
+    Orientation o;
     FileIO f;
 
     // Declare text views
@@ -51,13 +55,19 @@ public class SampleActivity extends WrapperActivity {
     @Override
     public void setup() throws Exception {
 
-        //setWorkInBackground(true);    // Uncomment if you'd like your app wo work in the background
+        //setWorkInBackground(true);    // Uncomment if you'd like your app to work in the background
 
         a = new Accelerometer(this);
 
         g = new Gyroscope(this);
 
-        f = new FileIO("//sdcard","readings.csv",true);
+        m = new Magnetometer(this);
+
+        gps = new GPS(this,1000);
+
+        o = new Orientation(this);
+
+        f = new FileIO("//sdcard","raw.csv",false);
 
         Log.d("Main", "Object init done");
 
@@ -71,19 +81,20 @@ public class SampleActivity extends WrapperActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ax.setText(Double.toString(a.x));
-                ay.setText(Double.toString(a.y));
-                az.setText(Double.toString(a.z));
-                gx.setText(Double.toString(g.x));
-                gy.setText(Double.toString(g.y));
-                gz.setText(Double.toString(g.z));
+                ax.setText(Double.toString(a.raw[0]));
+                ay.setText(Double.toString(a.raw[1]));
+                az.setText(Double.toString(a.raw[2]));
+                gx.setText(Double.toString(g.raw[0]));
+                gy.setText(Double.toString(g.raw[1]));
+                gz.setText(Double.toString(g.raw[2]));
             }
         });
 
-        f.write(a.x+","+a.y+","+a.z+","+g.x+","+g.y+","+g.z+"\n");
+        f.write(a.raw[0]+","+a.raw[1]+","+a.raw[2]+","+g.raw[0]+","+g.raw[1]+","+g.raw[2]+"\n");
         delay(500);
 
-        Log.d("Main", a.x+","+a.y+","+a.z+","+g.x+","+g.y+","+g.z);
+        Log.d("Orientation",o.raw[0]+"-"+o.raw[1]+"-"+o.raw[2]);
+
     }
 
     // Resource clean up

@@ -11,12 +11,12 @@ import com.fariddev.wrapperdroid.activity.WrapperActivity;
 /**
  * Created by ahmedfarid on 7/23/16.
  */
-public class SensorWrapper implements SensorEventListener {
+public class AbstractSensor implements SensorEventListener {
 
     private SensorManager sensorManager;
     public float values[];
 
-    public SensorWrapper(WrapperActivity activity, int TYPE) {
+    public AbstractSensor(WrapperActivity activity, int TYPE) {
 
         if(activity.getSensorManager() == null)
             activity.setSensorManager((SensorManager) activity.getSystemService(Context.SENSOR_SERVICE));
@@ -38,5 +38,9 @@ public class SensorWrapper implements SensorEventListener {
 
     public void stop(){
         sensorManager.unregisterListener(this);
+    }
+
+    public SensorManager getSensorManager() {
+        return sensorManager;
     }
 }
