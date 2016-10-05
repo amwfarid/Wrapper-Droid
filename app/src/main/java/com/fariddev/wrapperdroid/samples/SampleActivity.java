@@ -103,6 +103,7 @@ public class SampleActivity extends WrapperActivity {
     public void close(){
         a.stop();
         g.stop();
+        o.stop();
     }
 
 }
